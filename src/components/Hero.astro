@@ -4,11 +4,7 @@ import T from './T.astro';
 ---
 
 <section id="beranda" class="relative overflow-hidden">
-  <div
-    class="absolute inset-0 pointer-events-none"
-    style="background-image: radial-gradient(#e5e5e5 1px, transparent 1px); background-size: 28px 28px; opacity: 0.6;"
-    aria-hidden="true"
-  ></div>
+  <div class="absolute inset-0 pointer-events-none hero-dot-pattern" aria-hidden="true"></div>
 
   <div class="relative max-w-container mx-auto px-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-14" style="min-height: calc(100vh - 68px)">
     <div class="reveal">
@@ -16,7 +12,7 @@ import T from './T.astro';
         {heroContent.badge}
       </span>
 
-      <h1 class="text-5xl lg:text-[54px] font-black text-dark leading-[1.1] mb-5" style="letter-spacing: -0.125rem">
+      <h1 class="text-5xl lg:text-[54px] font-black text-dark dark:text-white leading-[1.1] mb-5" style="letter-spacing: -0.125rem">
         <T id={heroContent.title} en={heroContent.titleEn} />
       </h1>
 
@@ -37,7 +33,7 @@ import T from './T.astro';
         </button>
         <a
           href="#layanan"
-          class="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm px-8 py-3.5 rounded-lg transition-colors tracking-wide"
+          class="bg-white dark:bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm px-8 py-3.5 rounded-lg transition-colors tracking-wide"
         >
           <T id={heroContent.ctaSecondary} en={heroContent.ctaSecondaryEn} />
         </a>
@@ -45,7 +41,7 @@ import T from './T.astro';
 
       <div class="flex flex-wrap gap-6">
         {heroContent.trust.map((t) => (
-          <div class="flex items-center gap-2 text-sm text-dark font-semibold">
+          <div class="flex items-center gap-2 text-sm text-dark dark:text-[#e0e0e0] font-semibold">
             <span class="text-primary font-black">✓</span>
             {t}
           </div>

@@ -101,6 +101,17 @@ html[data-lang="en"] [data-lang-id][data-block] { display: none; }
 [data-lang-id][data-block] { display: block; }
 [data-lang-en][data-block] { display: none; }
 
+/* ── Hero dot pattern ── */
+.hero-dot-pattern {
+  background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.6;
+}
+.dark .hero-dot-pattern {
+  background-image: radial-gradient(#374151 1px, transparent 1px);
+  opacity: 0.5;
+}
+
 /* Scroll reveal */
 .reveal {
   opacity: 0;
@@ -153,9 +164,16 @@ html[data-lang="en"] [data-lang-id][data-block] { display: none; }
   color: #f0f0f0;
 }
 
+/* ── Global text color overrides ──
+   text-dark (#0D0D0D) and text-text-body (#555) are invisible on dark bg.
+   These rules fix ALL elements using those classes, regardless of context. */
+.dark .text-dark           { color: #f0f0f0; }
+.dark .text-text-body      { color: #9ca3af; }
+.dark .text-text-muted     { color: #6b7280; }
+
 /* Custom utility classes */
 .dark .section-title { color: #fff; }
-.dark .section-sub   { color: #999; }
+.dark .section-sub   { color: #9ca3af; }
 
 /* Header */
 .dark #site-header {
@@ -213,11 +231,16 @@ html[data-lang="en"] [data-lang-id][data-block] { display: none; }
   border-color: #FF791B;
 }
 
-/* Service/Process/Portfolio cards text */
-.dark article h3,
-.dark article .text-dark {
-  color: #fff;
-}
+/* Headings and text inside cards */
+.dark article h3          { color: #fff; }
+.dark article p           { color: #9ca3af; }
+.dark article blockquote  { color: rgba(240,240,240,0.75); }
+.dark article .text-dark  { color: #f0f0f0; }
+
+/* Pricing non-featured card text */
+.dark article h3.text-dark,
+.dark article .text-dark  { color: #f0f0f0; }
+.dark .text-dark           { color: #f0f0f0; }
 
 /* Tags */
 .dark .bg-primary-light {
