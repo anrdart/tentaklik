@@ -1,7 +1,6 @@
 ---
 import { navItems, siteConfig } from '@/data/content';
-import ThemeToggle from './ThemeToggle.astro';
-import LanguageRegionSwitcher from './LanguageRegionSwitcher.astro';
+import SettingsDropdown from './SettingsDropdown.astro';
 import MobileMenu from './MobileMenu.astro';
 import T from './T.astro';
 ---
@@ -47,8 +46,7 @@ import T from './T.astro';
 
     <!-- Desktop Right Actions -->
     <div class="hidden lg:flex items-center gap-3">
-      <ThemeToggle />
-      <LanguageRegionSwitcher />
+      <SettingsDropdown />
       <a
         id="nav-wa-cta"
         href={`https://wa.me/${siteConfig.whatsapp.ID}?text=${encodeURIComponent('Halo TentaKlik, saya ingin konsultasi gratis.')}`}

@@ -1,0 +1,182 @@
+---
+---
+
+<div class="settings-dropdown-wrap relative" id="settings-wrap">
+  <!-- Trigger button -->
+  <button
+    id="settings-trigger"
+    aria-label="Pengaturan tampilan dan bahasa"
+    aria-expanded="false"
+    aria-haspopup="true"
+    class="flex items-center gap-1.5 border border-border rounded-lg px-3 py-2 text-xs font-bold text-text-body bg-transparent cursor-pointer hover:border-primary hover:text-primary transition-colors select-none"
+  >
+    <span id="settings-theme-icon" class="text-sm leading-none">🌙</span>
+    <span class="w-px h-3 bg-border mx-0.5"></span>
+    <span id="settings-lang-flag" class="text-sm leading-none">🇮🇩</span>
+    <span id="settings-lang-label" class="text-[11px] font-extrabold">ID</span>
+    <svg class="w-3 h-3 ml-0.5 transition-transform duration-200" id="settings-chevron" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- Dropdown panel -->
+  <div
+    id="settings-panel"
+    role="menu"
+    class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-dark-card border border-border dark:border-dark-border rounded-xl shadow-lg overflow-hidden opacity-0 pointer-events-none translate-y-1 transition-all duration-200 z-50"
+  >
+    <!-- Theme row -->
+    <div class="px-3 pt-3 pb-2">
+      <p class="text-[10px] font-extrabold text-text-muted uppercase tracking-wider mb-2">Tampilan</p>
+      <button
+        id="sd-theme-btn"
+        class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-dark dark:text-white hover:bg-surface dark:hover:bg-dark-border transition-colors cursor-pointer"
+        type="button"
+      >
+        <span class="flex items-center gap-2">
+          <span id="sd-theme-icon" class="text-base">🌙</span>
+          <span id="sd-theme-label">Mode Gelap</span>
+        </span>
+        <!-- Toggle pill -->
+        <span
+          id="sd-theme-pill"
+          class="relative inline-flex w-8 h-4 rounded-full transition-colors duration-200 bg-border"
+        >
+          <span
+            id="sd-theme-dot"
+            class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white transition-transform duration-200 shadow-sm"
+          ></span>
+        </span>
+      </button>
+    </div>
+
+    <div class="border-t border-border dark:border-dark-border mx-3"></div>
+
+    <!-- Language row -->
+    <div class="px-3 pt-2 pb-3">
+      <p class="text-[10px] font-extrabold text-text-muted uppercase tracking-wider mb-2">Bahasa</p>
+      <div class="flex gap-2">
+        <button
+          id="sd-lang-id"
+          class="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold border transition-colors cursor-pointer"
+          type="button"
+        >
+          🇮🇩 <span>ID</span>
+        </button>
+        <button
+          id="sd-lang-en"
+          class="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold border transition-colors cursor-pointer"
+          type="button"
+        >
+          🇬🇧 <span>EN</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { detectLang, setLang } from '@/utils/i18n';
+  import { detectAndSetRegionFromIP } from '@/utils/region';
+  import type { Lang } from '@/utils/i18n';
+
+  const wrap      = document.getElementById('settings-wrap')!;
+  const trigger   = document.getElementById('settings-trigger')!;
+  const panel     = document.getElementById('settings-panel')!;
+  const chevron   = document.getElementById('settings-chevron')!;
+  const html      = document.documentElement;
+
+  // Theme elements
+  const themeIcon    = document.getElementById('settings-theme-icon')!;
+  const sdThemeBtn   = document.getElementById('sd-theme-btn')!;
+  const sdThemeIcon  = document.getElementById('sd-theme-icon')!;
+  const sdThemeLabel = document.getElementById('sd-theme-label')!;
+  const sdThemePill  = document.getElementById('sd-theme-pill')!;
+  const sdThemeDot   = document.getElementById('sd-theme-dot')!;
+
+  // Lang elements
+  const langFlag  = document.getElementById('settings-lang-flag')!;
+  const langLabel = document.getElementById('settings-lang-label')!;
+  const sdLangId  = document.getElementById('sd-lang-id')!;
+  const sdLangEn  = document.getElementById('sd-lang-en')!;
+
+  // ── Open / close ──────────────────────────────────
+  function openPanel() {
+    panel.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-1');
+    panel.classList.add('opacity-100', 'translate-y-0');
+    chevron.style.transform = 'rotate(180deg)';
+    trigger.setAttribute('aria-expanded', 'true');
+  }
+  function closePanel() {
+    panel.classList.add('opacity-0', 'pointer-events-none', 'translate-y-1');
+    panel.classList.remove('opacity-100', 'translate-y-0');
+    chevron.style.transform = '';
+    trigger.setAttribute('aria-expanded', 'false');
+  }
+
+  // Hover open, leave close (with small delay so user can move into panel)
+  let closeTimer: ReturnType<typeof setTimeout>;
+  wrap.addEventListener('mouseenter', () => { clearTimeout(closeTimer); openPanel(); });
+  wrap.addEventListener('mouseleave', () => { closeTimer = setTimeout(closePanel, 150); });
+
+  // Also toggle on click (for touch / keyboard)
+  trigger.addEventListener('click', () => {
+    const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+    isOpen ? closePanel() : openPanel();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!wrap.contains(e.target as Node)) closePanel();
+  });
+
+  // ── Theme ──────────────────────────────────────────
+  function applyTheme(dark: boolean) {
+    html.classList.toggle('dark', dark);
+    localStorage.setItem('tk_theme', dark ? 'dark' : 'light');
+
+    // Trigger button icon
+    themeIcon.textContent = dark ? '☀️' : '🌙';
+
+    // Panel state
+    sdThemeIcon.textContent  = dark ? '☀️' : '🌙';
+    sdThemeLabel.textContent = dark ? 'Mode Terang' : 'Mode Gelap';
+    sdThemePill.style.backgroundColor = dark ? '#FF7A1A' : '';
+    sdThemeDot.style.transform = dark ? 'translateX(16px)' : '';
+  }
+
+  applyTheme(localStorage.getItem('tk_theme') === 'dark');
+  sdThemeBtn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+  // ── Language ───────────────────────────────────────
+  const FLAGS:  Record<Lang, string> = { id: '🇮🇩', en: '🇬🇧' };
+  const LABELS: Record<Lang, string> = { id: 'ID',   en: 'EN'  };
+
+  function applyLang(lang: Lang) {
+    setLang(lang);
+    langFlag.textContent  = FLAGS[lang];
+    langLabel.textContent = LABELS[lang];
+    updateLangBtns(lang);
+  }
+
+  function updateLangBtns(lang: Lang) {
+    const active   = 'border-primary text-primary bg-primary-light';
+    const inactive = 'border-border text-text-body';
+    sdLangId.className = sdLangId.className.replace(/border-\S+|text-\S+|bg-\S+/g, '').trim();
+    sdLangEn.className = sdLangEn.className.replace(/border-\S+|text-\S+|bg-\S+/g, '').trim();
+
+    const base = 'flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold border transition-colors cursor-pointer ';
+    sdLangId.className = base + (lang === 'id' ? active : inactive);
+    sdLangEn.className = base + (lang === 'en' ? active : inactive);
+  }
+
+  applyLang(detectLang());
+  sdLangId.addEventListener('click', () => applyLang('id'));
+  sdLangEn.addEventListener('click', () => applyLang('en'));
+
+  // ── Region (silent, IP-based) ──────────────────────
+  detectAndSetRegionFromIP();
+</script>
