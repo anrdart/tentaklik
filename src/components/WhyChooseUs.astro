@@ -3,35 +3,67 @@ import { whyUs, whySection } from '@/data/content';
 import T from './T.astro';
 ---
 
-<section id="kenapa" class="py-20 bg-dark">
+<section id="kenapa" class="py-20 bg-surface dark:bg-[#0a0a0a]">
   <div class="max-w-container mx-auto px-10">
-    <div class="reveal">
-      <p class="eyebrow"><T id={whySection.eyebrow} en={whySection.eyebrowEn} /></p>
-      <h2 class="text-4xl font-black text-white leading-tight mb-3" style="letter-spacing:-0.05em">
-        <T id={whySection.title} en={whySection.titleEn} />
-      </h2>
-      <p class="text-base text-text-muted leading-relaxed max-w-xl mb-12">
+
+    <!-- Header -->
+    <div class="reveal flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+      <div>
+        <p class="eyebrow"><T id={whySection.eyebrow} en={whySection.eyebrowEn} /></p>
+        <h2 class="text-4xl font-black text-dark dark:text-white leading-tight" style="letter-spacing:-0.05em; max-width:480px">
+          <T id={whySection.title} en={whySection.titleEn} />
+        </h2>
+      </div>
+      <p class="text-base text-text-body dark:text-[#777] leading-relaxed max-w-sm lg:text-right">
         <T id={whySection.sub} en={whySection.subEn} />
       </p>
     </div>
 
+    <!-- Bento grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {whyUs.map((item, i) => (
         <div
-          class={`reveal rounded-2xl p-7 border transition-all duration-200 hover:border-primary ${
-            item.accent ? 'bg-primary border-primary' : 'bg-dark-card border-dark-border'
+          class={`reveal group relative rounded-2xl p-7 border transition-all duration-200 overflow-hidden ${
+            item.accent
+              ? 'bg-primary border-primary shadow-[0_8px_32px_rgba(255,122,26,0.35)]'
+              : 'bg-white dark:bg-[#111] border-border dark:border-[#222] hover:border-primary dark:hover:border-primary hover:shadow-[0_8px_24px_rgba(255,122,26,0.08)]'
           }`}
           style={`transition-delay: ${i * 50}ms`}
         >
-          <div class="text-3xl mb-4">{item.icon}</div>
-          <h3 class="text-base font-extrabold text-white mb-2">
+          {/* Subtle bg glow on non-accent cards */}
+          {!item.accent && (
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+              style="background: radial-gradient(circle at top left, rgba(255,122,26,0.04), transparent 60%)"
+            ></div>
+          )}
+
+          {/* Icon */}
+          <div class={`relative w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5 ${
+            item.accent ? 'bg-white/20' : 'bg-primary-light dark:bg-[#1a1a1a]'
+          }`}>
+            {item.icon}
+          </div>
+
+          {/* Number badge */}
+          <span class={`absolute top-5 right-6 text-[11px] font-extrabold tracking-widest ${
+            item.accent ? 'text-white/40' : 'text-text-muted dark:text-[#333]'
+          }`}>
+            0{i + 1}
+          </span>
+
+          <h3 class={`text-[15px] font-extrabold mb-2 leading-snug ${
+            item.accent ? 'text-white' : 'text-dark dark:text-white'
+          }`}>
             <T id={item.title} en={item.titleEn} />
           </h3>
-          <p class={`text-[13px] leading-relaxed ${item.accent ? 'text-white/80' : 'text-[#777]'}`}>
+          <p class={`text-[13px] leading-relaxed ${
+            item.accent ? 'text-white/80' : 'text-text-body dark:text-[#666]'
+          }`}>
             <T id={item.desc} en={item.descEn} />
           </p>
         </div>
       ))}
     </div>
+
   </div>
 </section>
