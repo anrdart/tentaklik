@@ -1,12 +1,19 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
+import Hero from '@/components/Hero.astro';
+import BrandMarquee from '@/components/BrandMarquee.astro';
+import Services from '@/components/Services.astro';
+import Process from '@/components/Process.astro';
+import CustomCursor from '@/components/CustomCursor.astro';
 ---
 <BaseLayout>
+  <CustomCursor />
   <Header />
   <main>
-    <div style="padding: 4rem 2.5rem;">
-      <h1 style="font-size:2rem;font-weight:900;">TentaKlik — Work in Progress</h1>
-    </div>
+    <Hero />
+    <BrandMarquee />
+    <Services />
+    <Process />
   </main>
 </BaseLayout>

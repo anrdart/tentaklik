@@ -1,0 +1,25 @@
+---
+---
+<div id="custom-cursor" aria-hidden="true"></div>
+
+<script>
+  const cursor = document.getElementById('custom-cursor')!;
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (!isTouch) {
+    cursor.classList.add('active');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    }, { passive: true });
+    document.addEventListener('mouseover', (e) => {
+      if ((e.target as Element).closest('a, button, [data-cursor-hover]')) {
+        cursor.classList.add('hovered');
+      }
+    });
+    document.addEventListener('mouseout', (e) => {
+      if ((e.target as Element).closest('a, button, [data-cursor-hover]')) {
+        cursor.classList.remove('hovered');
+      }
+    });
+  }
+</script>

@@ -1,0 +1,42 @@
+---
+import { clients } from '@/data/content';
+const doubled = [...clients, ...clients];
+---
+
+<div class="bg-surface border-t border-b border-border overflow-hidden py-5">
+  <div class="max-w-container mx-auto px-10 flex items-center gap-5">
+    <span class="text-[11px] font-extrabold text-text-muted tracking-widest uppercase whitespace-nowrap">
+      Dipercaya oleh
+    </span>
+    <div class="w-px h-5 bg-border flex-shrink-0"></div>
+
+    <div class="overflow-hidden flex-1 relative">
+      <div class="absolute left-0 top-0 bottom-0 w-14 z-10 pointer-events-none" style="background: linear-gradient(to right, #FAFAFA, transparent)"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-14 z-10 pointer-events-none" style="background: linear-gradient(to left, #FAFAFA, transparent)"></div>
+
+      <div class="marquee-track flex gap-12 w-max" role="list" aria-label="Daftar klien TentaKlik">
+        {doubled.map((client, i) => (
+          <span class="text-sm font-bold text-[#ccc] hover:text-primary transition-colors cursor-default whitespace-nowrap" role="listitem">
+            {client}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .marquee-track {
+    animation: marquee 28s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+</style>
