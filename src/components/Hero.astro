@@ -1,5 +1,5 @@
 ---
-import { heroContent, siteConfig } from '@/data/content';
+import { heroContent } from '@/data/content';
 import T from './T.astro';
 ---
 
@@ -71,7 +71,6 @@ import T from './T.astro';
   import { fireConfetti } from '@/utils/confetti';
   import { getWhatsAppLink, detectRegion } from '@/utils/region';
   import { siteConfig } from '@/data/content';
-  import type { Region } from '@/data/content';
 
   const btn = document.getElementById('hero-cta')!;
   btn.addEventListener('click', async () => {

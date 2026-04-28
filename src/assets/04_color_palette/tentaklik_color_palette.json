@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Primary Orange",
+    "role": "Primary brand/accent/CTA",
+    "hex": "#FF7A1A",
+    "rgb": "255,122,26"
+  },
+  {
+    "name": "Navy Dark",
+    "role": "Headline/text/dark background",
+    "hex": "#0E1B2A",
+    "rgb": "14,27,42"
+  },
+  {
+    "name": "Neutral Gray",
+    "role": "Secondary text/border/icon neutral",
+    "hex": "#6B7280",
+    "rgb": "107,114,128"
+  },
+  {
+    "name": "Light Background",
+    "role": "Background/card subtle",
+    "hex": "#F5F7FA",
+    "rgb": "245,247,250"
+  }
+]
