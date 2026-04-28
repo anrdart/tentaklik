@@ -4,8 +4,8 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #FF791B;
-  --color-primary-dark: #e06510;
+  --color-primary: #FF7A1A;
+  --color-primary-dark: #e06800;
   --color-primary-light: #FFF3EB;
   --color-dark: #0D0D0D;
   --color-dark-card: #1A1A1A;
@@ -81,6 +81,11 @@
     margin-bottom: 3rem;
   }
 }
+
+/* ── Logo switching (light / dark) ── */
+.logo-dark { display: none; }
+.dark .logo-light { display: none; }
+.dark .logo-dark { display: block; }
 
 /* ── Language switching (CSS-based) ── */
 /* Default: show ID, hide EN */
