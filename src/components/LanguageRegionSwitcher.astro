@@ -1,41 +1,45 @@
 ---
 ---
 <div class="flex items-center gap-2">
-  <select
-    id="lang-select"
-    aria-label="Pilih bahasa"
-    class="bg-transparent border border-border rounded-md px-2 py-1 text-xs font-semibold text-text-body cursor-pointer hover:border-primary transition-colors"
+  <button
+    id="lang-toggle"
+    aria-label="Ganti bahasa / Switch language"
+    class="flex items-center gap-1.5 border border-border rounded-md px-2.5 py-1.5 text-xs font-bold text-text-body cursor-pointer hover:border-primary hover:text-primary transition-colors bg-transparent"
   >
-    <option value="id">🇮🇩 ID</option>
-    <option value="en">🇬🇧 EN</option>
-  </select>
-  <select
-    id="region-select"
-    aria-label="Pilih region"
-    class="bg-transparent border border-border rounded-md px-2 py-1 text-xs font-semibold text-text-body cursor-pointer hover:border-primary transition-colors"
-  >
-    <option value="ID">ID</option>
-    <option value="SG">SG</option>
-    <option value="MY">MY</option>
-    <option value="GLOBAL">GLOBAL</option>
-  </select>
+    <span id="lang-flag">🇮🇩</span>
+    <span id="lang-label">ID</span>
+  </button>
 </div>
 
 <script>
-  import { detectLang, setLang, initLang } from '@/utils/i18n';
-  import { detectRegion, setRegion } from '@/utils/region';
+  import { detectLang, setLang } from '@/utils/i18n';
+  import { detectAndSetRegionFromIP } from '@/utils/region';
   import type { Lang } from '@/utils/i18n';
-  import type { Region } from '@/data/content';
 
-  const langSel = document.getElementById('lang-select') as HTMLSelectElement;
-  const regionSel = document.getElementById('region-select') as HTMLSelectElement;
+  const btn = document.getElementById('lang-toggle')!;
+  const flagEl = document.getElementById('lang-flag')!;
+  const labelEl = document.getElementById('lang-label')!;
 
-  langSel.value = detectLang();
-  regionSel.value = detectRegion();
+  const FLAGS: Record<Lang, string> = { id: '🇮🇩', en: '🇬🇧' };
+  const LABELS: Record<Lang, string> = { id: 'ID', en: 'EN' };
 
-  langSel.addEventListener('change', () => setLang(langSel.value as Lang));
-  regionSel.addEventListener('change', () => setRegion(regionSel.value as Region));
+  function updateBtn(lang: Lang) {
+    flagEl.textContent = FLAGS[lang];
+    labelEl.textContent = LABELS[lang];
+  }
 
-  initLang();
-  setRegion(detectRegion());
+  // Init language
+  const currentLang = detectLang();
+  updateBtn(currentLang);
+  setLang(currentLang);
+
+  // Toggle on click
+  btn.addEventListener('click', () => {
+    const next: Lang = detectLang() === 'id' ? 'en' : 'id';
+    setLang(next);
+    updateBtn(next);
+  });
+
+  // Auto-detect region from IP (runs once, no UI shown)
+  detectAndSetRegionFromIP();
 </script>

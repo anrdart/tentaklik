@@ -1,0 +1,16 @@
+---
+// src/components/T.astro
+// Usage: <T id="Teks Indonesia" en="English Text" tag="span" />
+interface Props {
+  id: string;
+  en: string;
+  tag?: string;
+  class?: string;
+}
+const { id, en, tag = 'span', class: cls = '' } = Astro.props;
+const Tag = tag as any;
+---
+<Fragment>
+  <Tag data-lang-id class={cls}>{id}</Tag>
+  <Tag data-lang-en class={cls} style="display:none">{en}</Tag>
+</Fragment>

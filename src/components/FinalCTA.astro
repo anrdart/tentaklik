@@ -1,5 +1,6 @@
 ---
 import { finalCtaSection, siteConfig } from '@/data/content';
+import T from './T.astro';
 ---
 
 <section id="kontak" class="bg-dark py-20 px-10 text-center relative overflow-hidden">
@@ -12,16 +13,16 @@ import { finalCtaSection, siteConfig } from '@/data/content';
   <div class="relative max-w-container mx-auto">
     <div class="reveal">
       <h2 class="text-4xl lg:text-[42px] font-black text-white leading-tight mb-4 whitespace-pre-line" style="letter-spacing:-0.05em">
-        {finalCtaSection.title}
+        <T id={finalCtaSection.title} en={finalCtaSection.titleEn} />
       </h2>
       <p class="text-base max-w-[520px] mx-auto leading-relaxed mb-9" style="color:#777">
-        {finalCtaSection.sub}
+        <T id={finalCtaSection.sub} en={finalCtaSection.subEn} />
       </p>
       <button
         id="final-cta-btn"
         class="bg-primary hover:bg-primary-dark text-white font-extrabold text-base px-10 py-4 rounded-xl transition-colors tracking-wider cursor-pointer"
       >
-        {finalCtaSection.cta}
+        <T id={finalCtaSection.cta} en={finalCtaSection.ctaEn} />
       </button>
     </div>
   </div>
@@ -36,13 +37,8 @@ import { finalCtaSection, siteConfig } from '@/data/content';
     await fireConfetti();
     const region = detectRegion();
     window.open(
-      getWhatsAppLink(
-        siteConfig.whatsapp,
-        region,
-        'Halo TentaKlik! Saya ingin konsultasi gratis.'
-      ),
-      '_blank',
-      'noopener,noreferrer'
+      getWhatsAppLink(siteConfig.whatsapp, region, 'Halo TentaKlik! Saya ingin konsultasi gratis.'),
+      '_blank', 'noopener,noreferrer'
     );
   });
 </script>

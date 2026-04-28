@@ -1,9 +1,9 @@
 ---
 import { heroContent, siteConfig } from '@/data/content';
+import T from './T.astro';
 ---
 
 <section id="beranda" class="relative overflow-hidden">
-  <!-- Dot pattern background -->
   <div
     class="absolute inset-0 pointer-events-none"
     style="background-image: radial-gradient(#e5e5e5 1px, transparent 1px); background-size: 28px 28px; opacity: 0.6;"
@@ -11,21 +11,20 @@ import { heroContent, siteConfig } from '@/data/content';
   ></div>
 
   <div class="relative max-w-container mx-auto px-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-14" style="min-height: calc(100vh - 68px)">
-    <!-- LEFT: Copy -->
     <div class="reveal">
       <span class="block text-primary text-sm font-bold tracking-widest uppercase mb-5">
         {heroContent.badge}
       </span>
 
-      <h1 class="text-5xl lg:text-[54px] font-black text-dark leading-[1.1] mb-5 whitespace-pre-line" style="letter-spacing: -0.125rem">
-        {heroContent.title}
+      <h1 class="text-5xl lg:text-[54px] font-black text-dark leading-[1.1] mb-5" style="letter-spacing: -0.125rem">
+        <T id={heroContent.title} en={heroContent.titleEn} />
       </h1>
 
       <p class="text-base text-text-body leading-relaxed max-w-[480px] mb-3">
-        {heroContent.sub1}
+        <T id={heroContent.sub1} en={heroContent.sub1En} />
       </p>
       <p class="text-base text-text-body leading-relaxed max-w-[480px] mb-9">
-        {heroContent.sub2}
+        <T id={heroContent.sub2} en={heroContent.sub2En} />
       </p>
 
       <div class="flex flex-wrap gap-3 mb-6">
@@ -34,17 +33,16 @@ import { heroContent, siteConfig } from '@/data/content';
           class="bg-primary hover:bg-primary-dark text-white font-extrabold text-sm px-8 py-3.5 rounded-lg transition-colors tracking-wider cursor-pointer"
           aria-label="Mulai konsultasi gratis dengan TentaKlik"
         >
-          {heroContent.cta}
+          <T id={heroContent.cta} en={heroContent.ctaEn} />
         </button>
         <a
           href="#layanan"
           class="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm px-8 py-3.5 rounded-lg transition-colors tracking-wide"
         >
-          {heroContent.ctaSecondary}
+          <T id={heroContent.ctaSecondary} en={heroContent.ctaSecondaryEn} />
         </a>
       </div>
 
-      <!-- Trust badges -->
       <div class="flex flex-wrap gap-6">
         {heroContent.trust.map((t) => (
           <div class="flex items-center gap-2 text-sm text-dark font-semibold">
@@ -55,11 +53,10 @@ import { heroContent, siteConfig } from '@/data/content';
       </div>
     </div>
 
-    <!-- RIGHT: Image -->
     <div class="reveal flex items-center justify-end">
       <img
         src="/sectionhero.webp"
-        alt="Portfolio website klien TentaKlik — berbagai desain website profesional"
+        alt="Portfolio website klien TentaKlik"
         class="w-full max-w-[600px]"
         style="filter: drop-shadow(0 24px 48px rgba(0,0,0,0.15))"
         loading="eager"
@@ -74,18 +71,15 @@ import { heroContent, siteConfig } from '@/data/content';
   import { fireConfetti } from '@/utils/confetti';
   import { getWhatsAppLink, detectRegion } from '@/utils/region';
   import { siteConfig } from '@/data/content';
+  import type { Region } from '@/data/content';
 
-  document.getElementById('hero-cta')!.addEventListener('click', async () => {
+  const btn = document.getElementById('hero-cta')!;
+  btn.addEventListener('click', async () => {
     await fireConfetti();
     const region = detectRegion();
     window.open(
-      getWhatsAppLink(
-        siteConfig.whatsapp,
-        region,
-        'Halo TentaKlik! Saya ingin konsultasi gratis untuk bisnis saya.'
-      ),
-      '_blank',
-      'noopener,noreferrer'
+      getWhatsAppLink(siteConfig.whatsapp, region, 'Halo TentaKlik! Saya ingin konsultasi gratis untuk bisnis saya.'),
+      '_blank', 'noopener,noreferrer'
     );
   });
 </script>

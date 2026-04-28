@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary: #FF791B;
   --color-primary-dark: #e06510;
@@ -127,7 +129,33 @@
   background-color: #0D0D0D;
   color: #fff;
 }
-.dark header {
-  background: rgba(13, 13, 13, 0.92) !important;
+
+/* Dark mode — Header */
+.dark #site-header {
+  background: rgba(13, 13, 13, 0.95) !important;
   border-color: #262626 !important;
+}
+
+/* Dark mode — Mobile menu */
+.dark #mobile-menu {
+  background: #111;
+}
+.dark #mobile-menu a {
+  color: #fff;
+  border-color: #262626;
+}
+
+/* Dark mode — Theme toggle & lang toggle */
+.dark #theme-toggle,
+.dark #lang-toggle {
+  border-color: #262626;
+  color: #fff;
+}
+
+/* Dark mode — Marquee fades */
+.dark .marquee-fade-left {
+  background: linear-gradient(to right, #0D0D0D, transparent);
+}
+.dark .marquee-fade-right {
+  background: linear-gradient(to left, #0D0D0D, transparent);
 }
