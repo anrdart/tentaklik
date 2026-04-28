@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FF791B;
+  --color-primary-dark: #e06510;
+  --color-primary-light: #FFF3EB;
+  --color-dark: #0D0D0D;
+  --color-dark-card: #1A1A1A;
+  --color-dark-border: #262626;
+  --color-surface: #FAFAFA;
+  --color-text-body: #555555;
+  --color-text-muted: #999999;
+  --color-border: #EEEEEE;
+
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  --max-width-container: 1280px;
+
+  --letter-spacing-tighter2: -0.125rem;
+}
