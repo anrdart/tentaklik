@@ -1,13 +1,12 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
 ---
-<!doctype html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <title>TentaKlik</title>
-  </head>
-  <body>
-    <h1>TentaKlik</h1>
-  </body>
-</html>
+<BaseLayout>
+  <Header />
+  <main>
+    <div style="padding: 4rem 2.5rem;">
+      <h1 style="font-size:2rem;font-weight:900;">TentaKlik — Work in Progress</h1>
+    </div>
+  </main>
+</BaseLayout>

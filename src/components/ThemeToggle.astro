@@ -1,0 +1,25 @@
+---
+---
+<button
+  id="theme-toggle"
+  aria-label="Toggle dark/light mode"
+  class="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-sm hover:border-primary transition-colors cursor-pointer"
+>
+  <span class="dark-icon hidden">☀️</span>
+  <span class="light-icon">🌙</span>
+</button>
+
+<script>
+  const btn = document.getElementById('theme-toggle')!;
+  const html = document.documentElement;
+
+  function applyTheme(dark: boolean) {
+    html.classList.toggle('dark', dark);
+    (btn.querySelector('.dark-icon') as HTMLElement).classList.toggle('hidden', !dark);
+    (btn.querySelector('.light-icon') as HTMLElement).classList.toggle('hidden', dark);
+    localStorage.setItem('tk_theme', dark ? 'dark' : 'light');
+  }
+
+  applyTheme(localStorage.getItem('tk_theme') === 'dark');
+  btn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+</script>

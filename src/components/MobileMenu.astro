@@ -1,0 +1,48 @@
+---
+import { navItems, siteConfig } from '@/data/content';
+---
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-50 bg-white transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col"
+  aria-hidden="true"
+>
+  <div class="flex items-center justify-between px-6 border-b border-border" style="height:68px">
+    <span class="text-lg font-black text-dark">TentaKlik</span>
+    <button
+      id="mobile-menu-close"
+      aria-label="Tutup menu"
+      class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-surface text-xl cursor-pointer"
+    >
+      ✕
+    </button>
+  </div>
+  <nav class="flex flex-col px-6 py-8 gap-1">
+    {navItems.map((item) => (
+      <a
+        href={item.href}
+        class="text-lg font-bold text-dark py-3 border-b border-border hover:text-primary transition-colors"
+        onclick="document.getElementById('mobile-menu')?.classList.add('translate-x-full'); document.getElementById('mobile-menu')?.setAttribute('aria-hidden','true')"
+      >
+        {item.label}
+      </a>
+    ))}
+  </nav>
+  <div class="px-6 mt-auto pb-8">
+    <a
+      href={`https://wa.me/${siteConfig.whatsapp.ID}?text=${encodeURIComponent('Halo TentaKlik, saya ingin konsultasi gratis.')}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block w-full bg-primary text-white text-center py-4 rounded-xl font-extrabold text-sm hover:bg-primary-dark transition-colors tracking-wider"
+    >
+      KONSULTASI GRATIS
+    </a>
+  </div>
+</div>
+
+<script>
+  document.getElementById('mobile-menu-close')!.addEventListener('click', () => {
+    const menu = document.getElementById('mobile-menu')!;
+    menu.classList.add('translate-x-full');
+    menu.setAttribute('aria-hidden', 'true');
+  });
+</script>

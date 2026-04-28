@@ -1,0 +1,78 @@
+---
+import { navItems, siteConfig } from '@/data/content';
+import ThemeToggle from './ThemeToggle.astro';
+import LanguageRegionSwitcher from './LanguageRegionSwitcher.astro';
+import MobileMenu from './MobileMenu.astro';
+---
+
+<MobileMenu />
+
+<header
+  id="site-header"
+  class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-border transition-shadow duration-200"
+>
+  <nav class="max-w-container mx-auto px-10 flex items-center justify-between" style="height:68px">
+    <!-- Logo -->
+    <a href="#beranda" class="flex items-center gap-2.5" aria-label="TentaKlik - Beranda">
+      <div class="w-9 h-9 bg-primary rounded-full flex items-center justify-center text-white font-black text-base select-none">
+        T
+      </div>
+      <span class="text-lg font-black text-dark tracking-tight">TentaKlik</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden lg:flex items-center gap-7" role="list">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="text-sm font-semibold text-text-body hover:text-primary transition-colors"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Desktop Right Actions -->
+    <div class="hidden lg:flex items-center gap-3">
+      <ThemeToggle />
+      <LanguageRegionSwitcher />
+      <a
+        id="nav-cta"
+        href={`https://wa.me/${siteConfig.whatsapp.ID}?text=${encodeURIComponent('Halo TentaKlik, saya ingin konsultasi gratis.')}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-primary hover:bg-primary-dark text-white font-extrabold text-sm px-6 py-2.5 rounded-lg transition-colors tracking-wide"
+      >
+        KONSULTASI GRATIS
+      </a>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <button
+      id="mobile-menu-open"
+      aria-label="Buka menu navigasi"
+      class="lg:hidden flex flex-col items-center justify-center gap-1.5 w-10 h-10 cursor-pointer"
+    >
+      <span class="w-6 h-0.5 bg-dark block"></span>
+      <span class="w-6 h-0.5 bg-dark block"></span>
+      <span class="w-4 h-0.5 bg-dark block self-start"></span>
+    </button>
+  </nav>
+</header>
+
+<script>
+  // Add shadow on scroll
+  const header = document.getElementById('site-header')!;
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('shadow-sm', window.scrollY > 10);
+  }, { passive: true });
+
+  // Open mobile menu
+  document.getElementById('mobile-menu-open')!.addEventListener('click', () => {
+    const menu = document.getElementById('mobile-menu')!;
+    menu.classList.remove('translate-x-full');
+    menu.setAttribute('aria-hidden', 'false');
+  });
+</script>
