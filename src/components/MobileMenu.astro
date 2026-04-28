@@ -2,48 +2,127 @@
 import { navItems, siteConfig } from '@/data/content';
 import T from './T.astro';
 ---
+
+<!-- Backdrop -->
+<div
+  id="menu-backdrop"
+  class="fixed inset-0 z-40 bg-dark/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+  aria-hidden="true"
+></div>
+
+<!-- Menu Panel -->
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-50 bg-white transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menu navigasi"
   aria-hidden="true"
+  class="mobile-menu-panel fixed top-0 right-0 bottom-0 z-50 w-[85vw] max-w-xs bg-white dark:bg-[#111] flex flex-col shadow-2xl"
 >
-  <div class="flex items-center justify-between px-6 border-b border-border" style="height:68px">
-    <img src="/logo-light.png" alt="TentaKlik" class="h-8 w-auto" width="140" height="32" />
+  <!-- Header -->
+  <div class="flex items-center justify-between px-6 border-b border-border dark:border-dark-border shrink-0" style="height:68px">
+    <img src="/logo-light.png" alt="TentaKlik" class="h-8 w-auto logo-light" width="140" height="32" />
+    <img src="/logo-dark.png" alt="TentaKlik" class="h-8 w-auto logo-dark" width="140" height="32" />
     <button
       id="mobile-menu-close"
       aria-label="Tutup menu"
-      class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-surface text-xl cursor-pointer"
+      class="close-btn w-9 h-9 flex items-center justify-center rounded-lg border border-border dark:border-dark-border hover:border-primary hover:text-primary dark:hover:border-primary transition-all cursor-pointer text-text-body dark:text-[#ccc]"
     >
-      ✕
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
     </button>
   </div>
-  <nav class="flex flex-col px-6 py-8 gap-1">
-    {navItems.map((item) => (
+
+  <!-- Nav links -->
+  <nav class="flex flex-col px-6 py-6 gap-1 flex-1 overflow-y-auto">
+    {navItems.map((item, i) => (
       <a
         href={item.href}
-        class="text-lg font-bold text-dark py-3 border-b border-border hover:text-primary transition-colors"
-        onclick="document.getElementById('mobile-menu')?.classList.add('translate-x-full'); document.getElementById('mobile-menu')?.setAttribute('aria-hidden','true')"
+        class="nav-link group flex items-center justify-between py-3.5 border-b border-border dark:border-dark-border text-base font-bold text-dark dark:text-[#e0e0e0] hover:text-primary transition-colors"
+        style={`--i: ${i}`}
+        onclick="window.__closeMobileMenu?.()"
       >
         <T id={item.label} en={item.labelEn} />
+        <svg class="w-4 h-4 text-border dark:text-dark-border group-hover:text-primary group-hover:translate-x-1 transition-all" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
     ))}
   </nav>
-  <div class="px-6 mt-auto pb-8">
+
+  <!-- CTA -->
+  <div class="px-6 pb-8 pt-4 shrink-0 cta-wrap">
     <a
       href={`https://wa.me/${siteConfig.whatsapp.ID}?text=${encodeURIComponent('Halo TentaKlik, saya ingin konsultasi gratis.')}`}
       target="_blank"
       rel="noopener noreferrer"
       class="block w-full bg-primary text-white text-center py-4 rounded-xl font-extrabold text-sm hover:bg-primary-dark transition-colors tracking-wider"
+      onclick="window.__closeMobileMenu?.()"
     >
       <T id="KONSULTASI GRATIS" en="FREE CONSULTATION" />
     </a>
+    <p class="text-center text-xs text-text-muted mt-3">
+      <T id="Konsultasi pertama gratis, tanpa komitmen." en="First consultation is free, no commitment." />
+    </p>
   </div>
 </div>
 
+<style>
+  /* ── Backdrop ── */
+  #menu-backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ── Panel: slide from right ── */
+  .mobile-menu-panel {
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
+  }
+  .mobile-menu-panel.is-open {
+    transform: translateX(0);
+  }
+
+  /* ── Nav links: stagger fade-in ── */
+  .nav-link {
+    opacity: 0;
+    transform: translateX(16px);
+    transition:
+      opacity  0.3s ease,
+      transform 0.3s ease,
+      color 0.2s ease;
+  }
+  .mobile-menu-panel.is-open .nav-link {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: calc(0.15s + var(--i) * 0.05s);
+  }
+
+  /* ── CTA: fade up ── */
+  .cta-wrap {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .mobile-menu-panel.is-open .cta-wrap {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.45s;
+  }
+
+  /* ── Close button: spin on hover ── */
+  .close-btn svg {
+    transition: transform 0.3s ease;
+  }
+  .close-btn:hover svg {
+    transform: rotate(90deg);
+  }
+</style>
+
 <script>
   document.getElementById('mobile-menu-close')!.addEventListener('click', () => {
-    const menu = document.getElementById('mobile-menu')!;
-    menu.classList.add('translate-x-full');
-    menu.setAttribute('aria-hidden', 'true');
+    (window as any).__closeMobileMenu?.();
   });
 </script>

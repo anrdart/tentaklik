@@ -9,35 +9,20 @@ import T from './T.astro';
 
 <header
   id="site-header"
-  class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-border transition-shadow duration-200"
+  class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-border dark:border-dark-border transition-shadow duration-200"
 >
   <nav class="max-w-container mx-auto px-5 md:px-10 flex items-center justify-between" style="height:68px">
     <!-- Logo -->
     <a href="#beranda" class="flex items-center" aria-label="TentaKlik - Beranda">
-      <img
-        src="/logo-light.png"
-        alt="TentaKlik"
-        class="h-9 w-auto logo-light"
-        width="160"
-        height="36"
-      />
-      <img
-        src="/logo-dark.png"
-        alt="TentaKlik"
-        class="h-9 w-auto logo-dark"
-        width="160"
-        height="36"
-      />
+      <img src="/logo-light.png" alt="TentaKlik" class="h-9 w-auto logo-light" width="160" height="36" />
+      <img src="/logo-dark.png" alt="TentaKlik" class="h-9 w-auto logo-dark" width="160" height="36" />
     </a>
 
     <!-- Desktop Nav -->
     <ul class="hidden lg:flex items-center gap-7" role="list">
       {navItems.map((item) => (
         <li>
-          <a
-            href={item.href}
-            class="text-sm font-semibold text-text-body dark:text-[#ccc] hover:text-primary transition-colors"
-          >
+          <a href={item.href} class="text-sm font-semibold text-text-body dark:text-[#ccc] hover:text-primary transition-colors">
             <T id={item.label} en={item.labelEn} />
           </a>
         </li>
@@ -60,43 +45,132 @@ import T from './T.astro';
 
     <!-- Mobile Hamburger -->
     <button
-      id="mobile-menu-open"
+      id="hamburger-btn"
       aria-label="Buka menu navigasi"
-      class="lg:hidden flex flex-col items-center justify-center gap-1.5 w-10 h-10 cursor-pointer"
+      aria-expanded="false"
+      class="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface dark:hover:bg-[#1a1a1a] transition-colors cursor-pointer"
     >
-      <span class="w-6 h-0.5 bg-dark dark:bg-white block"></span>
-      <span class="w-6 h-0.5 bg-dark dark:bg-white block"></span>
-      <span class="w-4 h-0.5 bg-dark dark:bg-white block self-start"></span>
+      <span class="hb-wrap">
+        <span class="hb-line hb-1"></span>
+        <span class="hb-line hb-2"></span>
+        <span class="hb-line hb-3"></span>
+      </span>
     </button>
   </nav>
 </header>
+
+<style>
+  /* Hamburger wrapper */
+  .hb-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .hb-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: #0D0D0D;
+    transform-origin: center;
+    transition:
+      transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+      opacity   0.25s ease,
+      width     0.3s  cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* Dark mode lines */
+  :global(.dark) .hb-line {
+    background: #f0f0f0;
+  }
+
+  /* Line widths — asymmetric at rest for personality */
+  .hb-1 { width: 22px; }
+  .hb-2 { width: 16px; align-self: flex-start; }
+  .hb-3 { width: 22px; }
+
+  /* Hover: all lines equal */
+  #hamburger-btn:hover .hb-1,
+  #hamburger-btn:hover .hb-2,
+  #hamburger-btn:hover .hb-3 {
+    width: 22px;
+  }
+
+  /* OPEN state — morph to X */
+  #hamburger-btn.is-open .hb-1 {
+    transform: translateY(7px) rotate(45deg);
+    width: 22px;
+  }
+  #hamburger-btn.is-open .hb-2 {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  #hamburger-btn.is-open .hb-3 {
+    transform: translateY(-7px) rotate(-45deg);
+    width: 22px;
+  }
+
+  /* Subtle orange accent on open */
+  #hamburger-btn.is-open .hb-line {
+    background: #FF7A1A;
+  }
+</style>
 
 <script>
   import { detectRegion } from '@/utils/region';
   import { siteConfig } from '@/data/content';
   import type { Region } from '@/data/content';
 
-  // Add shadow on scroll
-  const header = document.getElementById('site-header')!;
+  const header  = document.getElementById('site-header')!;
+  const btn     = document.getElementById('hamburger-btn')!;
+  const menu    = document.getElementById('mobile-menu')!;
+  const backdrop = document.getElementById('menu-backdrop')!;
+
+  function openMenu() {
+    btn.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    menu.classList.add('is-open');
+    backdrop.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    btn.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    menu.classList.remove('is-open');
+    backdrop.classList.remove('is-visible');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', () => {
+    btn.classList.contains('is-open') ? closeMenu() : openMenu();
+  });
+
+  backdrop.addEventListener('click', closeMenu);
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Expose closeMenu globally for nav link clicks
+  (window as any).__closeMobileMenu = closeMenu;
+
+  // Scroll shadow
   window.addEventListener('scroll', () => {
     header.classList.toggle('shadow-sm', window.scrollY > 10);
   }, { passive: true });
 
-  // Open mobile menu
-  document.getElementById('mobile-menu-open')!.addEventListener('click', () => {
-    const menu = document.getElementById('mobile-menu')!;
-    menu.classList.remove('translate-x-full');
-    menu.setAttribute('aria-hidden', 'false');
-  });
-
-  // Update nav CTA WhatsApp link on regionchange
+  // Update nav CTA on region change
   function updateNavCta(region: Region) {
     const link = document.getElementById('nav-wa-cta') as HTMLAnchorElement | null;
-    if (link) {
-      link.href = `https://wa.me/${siteConfig.whatsapp[region]}?text=${encodeURIComponent('Halo TentaKlik, saya ingin konsultasi gratis.')}`;
-    }
+    if (link) link.href = `https://wa.me/${siteConfig.whatsapp[region]}?text=${encodeURIComponent('Halo TentaKlik, saya ingin konsultasi gratis.')}`;
   }
-
   updateNavCta(detectRegion());
   window.addEventListener('regionchange', (e) => {
     updateNavCta((e as CustomEvent<{ region: Region }>).detail.region);
