@@ -3,8 +3,8 @@ import { testimonials, testimonialsSection } from '@/data/content';
 import T from './T.astro';
 ---
 
-<section id="testimoni" class="py-20 bg-surface dark:bg-dark">
-  <div class="max-w-container mx-auto px-10">
+<section id="testimoni" class="py-12 md:py-20 bg-surface dark:bg-dark">
+  <div class="max-w-container mx-auto px-5 md:px-10">
     <div class="reveal">
       <p class="eyebrow"><T id={testimonialsSection.eyebrow} en={testimonialsSection.eyebrowEn} /></p>
       <h2 class="section-title dark:text-white"><T id={testimonialsSection.title} en={testimonialsSection.titleEn} /></h2>
@@ -13,7 +13,7 @@ import T from './T.astro';
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
       {testimonials.map((t, i) => (
         <article
-          class="reveal bg-white dark:bg-dark-card border border-border dark:border-dark-border rounded-2xl p-7 hover:border-primary transition-all duration-200"
+          class="reveal bg-white dark:bg-dark-card border border-border dark:border-dark-border rounded-2xl p-5 md:p-7 hover:border-primary transition-all duration-200"
           style={`transition-delay: ${i * 60}ms`}
         >
           <div class="flex gap-0.5 mb-4" aria-label={`Rating ${t.stars} bintang`}>

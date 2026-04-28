@@ -6,13 +6,13 @@ import T from './T.astro';
 <section id="beranda" class="relative overflow-hidden">
   <div class="absolute inset-0 pointer-events-none hero-dot-pattern" aria-hidden="true"></div>
 
-  <div class="relative max-w-container mx-auto px-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-14" style="min-height: calc(100vh - 68px)">
+  <div class="relative max-w-container mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-10 lg:py-14 lg:min-h-[calc(100vh-68px)]">
     <div class="reveal">
       <span class="block text-primary text-sm font-bold tracking-widest uppercase mb-5">
         {heroContent.badge}
       </span>
 
-      <h1 class="text-5xl lg:text-[54px] font-black text-dark dark:text-white leading-[1.1] mb-5" style="letter-spacing: -0.125rem">
+      <h1 class="text-[2rem] sm:text-4xl lg:text-[54px] font-black text-dark dark:text-white leading-[1.1] mb-5" style="letter-spacing: -0.125rem">
         <T id={heroContent.title} en={heroContent.titleEn} />
       </h1>
 
@@ -49,11 +49,11 @@ import T from './T.astro';
       </div>
     </div>
 
-    <div class="reveal flex items-center justify-end">
+    <div class="reveal flex items-center justify-center lg:justify-end">
       <img
         src="/hero.png"
         alt="Portfolio website klien TentaKlik"
-        class="w-full max-w-150"
+        class="w-full max-w-120 lg:max-w-150"
         style="filter: drop-shadow(0 24px 48px rgba(0,0,0,0.15))"
         loading="eager"
         width="600"

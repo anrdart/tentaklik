@@ -3,11 +3,11 @@ import { whyUs, whySection } from '@/data/content';
 import T from './T.astro';
 ---
 
-<section id="kenapa" class="py-20 bg-surface dark:bg-[#0a0a0a]">
-  <div class="max-w-container mx-auto px-10">
+<section id="kenapa" class="py-12 md:py-20 bg-surface dark:bg-[#0a0a0a]">
+  <div class="max-w-container mx-auto px-5 md:px-10">
 
     <!-- Header -->
-    <div class="reveal flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+    <div class="reveal flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 lg:mb-12">
       <div>
         <p class="eyebrow"><T id={whySection.eyebrow} en={whySection.eyebrowEn} /></p>
         <h2 class="text-4xl font-black text-dark dark:text-white leading-tight" style="letter-spacing:-0.05em; max-width:480px">
@@ -23,7 +23,7 @@ import T from './T.astro';
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {whyUs.map((item, i) => (
         <div
-          class={`reveal group relative rounded-2xl p-7 border transition-all duration-200 overflow-hidden ${
+          class={`reveal group relative rounded-2xl p-5 md:p-7 border transition-all duration-200 overflow-hidden ${
             item.accent
               ? 'bg-primary border-primary shadow-[0_8px_32px_rgba(255,122,26,0.35)]'
               : 'bg-white dark:bg-[#111] border-border dark:border-[#222] hover:border-primary dark:hover:border-primary hover:shadow-[0_8px_24px_rgba(255,122,26,0.08)]'

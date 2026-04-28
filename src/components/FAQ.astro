@@ -3,8 +3,8 @@ import { faqItems, faqSection } from '@/data/content';
 import T from './T.astro';
 ---
 
-<section id="faq" class="py-20 bg-surface dark:bg-dark">
-  <div class="mx-auto px-10" style="max-width: 960px">
+<section id="faq" class="py-12 md:py-20 bg-surface dark:bg-dark">
+  <div class="mx-auto px-5 md:px-10" style="max-width: 960px">
     <div class="reveal text-center mb-12">
       <p class="eyebrow"><T id={faqSection.eyebrow} en={faqSection.eyebrowEn} /></p>
       <h2 class="section-title dark:text-white"><T id={faqSection.title} en={faqSection.titleEn} /></h2>
@@ -17,7 +17,7 @@ import T from './T.astro';
           style={`transition-delay: ${i * 40}ms`}
         >
           <button
-            class="faq-trigger w-full text-left px-6 py-5 text-sm font-bold text-dark dark:text-white flex items-center justify-between gap-4 cursor-pointer"
+            class="faq-trigger w-full text-left px-4 py-4 md:px-6 text-sm font-bold text-dark dark:text-white flex items-center justify-between gap-4 cursor-pointer"
             aria-expanded="false"
             type="button"
           >
@@ -25,7 +25,7 @@ import T from './T.astro';
             <span class="faq-icon text-primary text-xl font-light shrink-0 transition-transform duration-200 leading-none">+</span>
           </button>
           <div class="faq-answer overflow-hidden transition-all duration-300 ease-in-out" style="max-height:0">
-            <p class="px-6 pb-5 text-sm text-text-body dark:text-text-muted leading-relaxed">
+            <p class="px-4 pb-4 md:px-6 text-sm text-text-body dark:text-text-muted leading-relaxed">
               <T id={item.a} en={item.aEn} />
             </p>
           </div>
