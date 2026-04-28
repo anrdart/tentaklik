@@ -3,6 +3,7 @@ import { navItems, siteConfig } from '@/data/content';
 import ThemeToggle from './ThemeToggle.astro';
 import LanguageRegionSwitcher from './LanguageRegionSwitcher.astro';
 import MobileMenu from './MobileMenu.astro';
+import T from './T.astro';
 ---
 
 <MobileMenu />
@@ -28,7 +29,7 @@ import MobileMenu from './MobileMenu.astro';
             href={item.href}
             class="text-sm font-semibold text-text-body dark:text-[#ccc] hover:text-primary transition-colors"
           >
-            {item.label}
+            <T id={item.label} en={item.labelEn} />
           </a>
         </li>
       ))}

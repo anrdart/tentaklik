@@ -28,18 +28,15 @@
     labelEl.textContent = LABELS[lang];
   }
 
-  // Init language
   const currentLang = detectLang();
   updateBtn(currentLang);
-  setLang(currentLang);
+  // CSS already handled by inline script in BaseLayout head
 
-  // Toggle on click
   btn.addEventListener('click', () => {
     const next: Lang = detectLang() === 'id' ? 'en' : 'id';
     setLang(next);
     updateBtn(next);
   });
 
-  // Auto-detect region from IP (runs once, no UI shown)
   detectAndSetRegionFromIP();
 </script>

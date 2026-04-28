@@ -11,6 +11,6 @@ const { id, en, tag = 'span', class: cls = '' } = Astro.props;
 const Tag = tag as any;
 ---
 <Fragment>
-  <Tag data-lang-id class={cls}>{id}</Tag>
-  <Tag data-lang-en class={cls} style="display:none">{en}</Tag>
+  <Tag data-lang-id class={cls || undefined}>{id}</Tag>
+  <Tag data-lang-en class={cls || undefined}>{en}</Tag>
 </Fragment>

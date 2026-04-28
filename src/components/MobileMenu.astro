@@ -1,5 +1,6 @@
 ---
 import { navItems, siteConfig } from '@/data/content';
+import T from './T.astro';
 ---
 <div
   id="mobile-menu"
@@ -23,7 +24,7 @@ import { navItems, siteConfig } from '@/data/content';
         class="text-lg font-bold text-dark py-3 border-b border-border hover:text-primary transition-colors"
         onclick="document.getElementById('mobile-menu')?.classList.add('translate-x-full'); document.getElementById('mobile-menu')?.setAttribute('aria-hidden','true')"
       >
-        {item.label}
+        <T id={item.label} en={item.labelEn} />
       </a>
     ))}
   </nav>

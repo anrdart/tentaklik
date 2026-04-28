@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-primary: #FF791B;
@@ -82,6 +82,20 @@
   }
 }
 
+/* ── Language switching (CSS-based) ── */
+/* Default: show ID, hide EN */
+[data-lang-en] { display: none; }
+
+/* When EN is active on <html> */
+html[data-lang="en"] [data-lang-en] { display: inline; }
+html[data-lang="en"] [data-lang-id] { display: none; }
+
+/* Block-level lang elements */
+html[data-lang="en"] [data-lang-en][data-block] { display: block; }
+html[data-lang="en"] [data-lang-id][data-block] { display: none; }
+[data-lang-id][data-block] { display: block; }
+[data-lang-en][data-block] { display: none; }
+
 /* Scroll reveal */
 .reveal {
   opacity: 0;
@@ -124,38 +138,118 @@
   border: 2px solid #FF791B;
 }
 
-/* Dark mode overrides */
+/* ══════════════════════════════════════════
+   DARK MODE — Comprehensive overrides
+   ══════════════════════════════════════════ */
+
+/* Body */
 .dark body {
-  background-color: #0D0D0D;
-  color: #fff;
+  background-color: #111;
+  color: #f0f0f0;
 }
 
-/* Dark mode — Header */
+/* Custom utility classes */
+.dark .section-title { color: #fff; }
+.dark .section-sub   { color: #999; }
+
+/* Header */
 .dark #site-header {
-  background: rgba(13, 13, 13, 0.95) !important;
+  background: rgba(17, 17, 17, 0.95) !important;
   border-color: #262626 !important;
 }
 
-/* Dark mode — Mobile menu */
+/* Mobile menu */
 .dark #mobile-menu {
   background: #111;
 }
 .dark #mobile-menu a {
-  color: #fff;
+  color: #e0e0e0;
   border-color: #262626;
 }
 
-/* Dark mode — Theme toggle & lang toggle */
+/* Toggles */
 .dark #theme-toggle,
 .dark #lang-toggle {
+  border-color: #444;
+  color: #e0e0e0;
+}
+.dark #theme-toggle:hover,
+.dark #lang-toggle:hover {
+  border-color: #FF791B;
+}
+
+/* Light sections → dark */
+.dark section.bg-white,
+.dark section[class*="bg-white"] {
+  background-color: #111 !important;
+}
+
+/* Surface sections */
+.dark section.bg-surface,
+.dark section[class*="bg-surface"],
+.dark .bg-surface {
+  background-color: #1A1A1A !important;
+}
+
+/* Cards */
+.dark article,
+.dark .border-border {
   border-color: #262626;
+}
+.dark article.bg-white,
+.dark [class*="bg-white"].rounded-2xl,
+.dark [class*="bg-white"].rounded-xl {
+  background-color: #1A1A1A !important;
+}
+
+/* Card hover shadow in dark mode */
+.dark article:hover,
+.dark div[class*="border-border"]:hover {
+  border-color: #FF791B;
+}
+
+/* Service/Process/Portfolio cards text */
+.dark article h3,
+.dark article .text-dark {
   color: #fff;
 }
 
-/* Dark mode — Marquee fades */
+/* Tags */
+.dark .bg-primary-light {
+  background-color: rgba(255, 121, 27, 0.15) !important;
+}
+
+/* FAQ */
+.dark .faq-item {
+  background-color: #1A1A1A;
+  border-color: #262626;
+}
+.dark .faq-trigger {
+  color: #f0f0f0;
+}
+.dark .faq-answer p {
+  color: #999;
+}
+
+/* Pricing */
+.dark .pricing-light {
+  background-color: #1A1A1A;
+  border-color: #262626;
+}
+
+/* Marquee */
+.dark .clients-wrap {
+  background-color: #111 !important;
+  border-color: #262626;
+}
 .dark .marquee-fade-left {
-  background: linear-gradient(to right, #0D0D0D, transparent);
+  background: linear-gradient(to right, #111, transparent);
 }
 .dark .marquee-fade-right {
-  background: linear-gradient(to left, #0D0D0D, transparent);
+  background: linear-gradient(to left, #111, transparent);
+}
+
+/* BrandMarquee container */
+.dark .bg-surface {
+  background-color: #111 !important;
 }

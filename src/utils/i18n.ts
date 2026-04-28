@@ -11,19 +11,12 @@ export function detectLang(): Lang {
 export function setLang(lang: Lang) {
   localStorage.setItem('tk_lang', lang);
   document.documentElement.setAttribute('data-lang', lang);
-
-  // Show/hide elements by language
-  document.querySelectorAll<HTMLElement>('[data-lang-id]').forEach((el) => {
-    el.style.display = lang === 'id' ? '' : 'none';
-  });
-  document.querySelectorAll<HTMLElement>('[data-lang-en]').forEach((el) => {
-    el.style.display = lang === 'en' ? '' : 'none';
-  });
-
-  // Dispatch event for components that need it
   window.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
 }
 
 export function initLang() {
-  setLang(detectLang());
+  // Apply immediately, before paint if possible
+  const lang = detectLang();
+  document.documentElement.setAttribute('data-lang', lang);
+  localStorage.setItem('tk_lang', lang);
 }
