@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -17,4 +18,116 @@
   --max-width-container: 1280px;
 
   --letter-spacing-tighter2: -0.125rem;
+}
+
+@layer base {
+  html {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: #fff;
+    color: #0D0D0D;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #FF791B;
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #FF791B;
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .section-container {
+    max-width: var(--max-width-container);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #FF791B;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #0D0D0D;
+    line-height: 1.15;
+    letter-spacing: -0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: #555555;
+    line-height: 1.65;
+    max-width: 35rem;
+    margin-bottom: 3rem;
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Custom cursor */
+#custom-cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: #FF791B;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
+  opacity: 0;
+}
+#custom-cursor.active {
+  opacity: 1;
+}
+#custom-cursor.hovered {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 121, 27, 0.15);
+  border: 2px solid #FF791B;
+}
+
+/* Dark mode overrides */
+.dark body {
+  background-color: #0D0D0D;
+  color: #fff;
+}
+.dark header {
+  background: rgba(13, 13, 13, 0.92) !important;
+  border-color: #262626 !important;
 }
