@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TentaKlik — naon.id style preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #000; }
+
+  /* NAV */
+  nav {
+    max-width: 1420px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .logo { font-size: 20px; font-weight: 800; color: #183FE1; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 15px; font-weight: 500; color: rgba(0,0,0,0.72); text-decoration: none; }
+  .nav-links a:hover { color: #183FE1; }
+  .nav-cta {
+    background: #183FE1; color: #fff;
+    border-radius: 8px; padding: 10px 22px;
+    font-size: 14px; font-weight: 600; border: none; cursor: pointer;
+    text-decoration: none;
+  }
+
+  /* HERO */
+  .hero {
+    max-width: 1420px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    padding: 80px 40px 60px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(24,63,225,0.07); border: 1px solid rgba(24,63,225,0.15);
+    border-radius: 999px; padding: 6px 16px;
+    font-size: 13px; font-weight: 600; color: #183FE1;
+    margin-bottom: 24px;
+  }
+  .hero-badge span { width: 6px; height: 6px; background: #183FE1; border-radius: 50%; display:inline-block; }
+  .hero-title {
+    font-size: 52px; font-weight: 800; line-height: 1.1;
+    color: #000; margin-bottom: 20px;
+    letter-spacing: -1.5px;
+  }
+  .hero-title em { font-style: normal; color: #183FE1; }
+  .hero-sub {
+    font-size: 17px; color: rgba(0,0,0,0.55); line-height: 1.65;
+    margin-bottom: 36px; max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 12px; align-items: center; margin-bottom: 48px; }
+  .btn-primary {
+    background: #183FE1; color: #fff;
+    border-radius: 8px; padding: 14px 28px;
+    font-size: 15px; font-weight: 700; border: none; cursor: pointer;
+  }
+  .btn-secondary {
+    background: transparent; color: rgba(0,0,0,0.7);
+    border-radius: 8px; padding: 14px 28px;
+    font-size: 15px; font-weight: 600;
+    border: 1px solid rgba(0,0,0,0.15); cursor: pointer;
+  }
+  .hero-stats { display: flex; gap: 40px; }
+  .stat-item {}
+  .stat-num { font-size: 28px; font-weight: 800; color: #000; }
+  .stat-num span { color: #183FE1; }
+  .stat-label { font-size: 13px; color: rgba(0,0,0,0.45); margin-top: 2px; }
+
+  /* Hero right visual */
+  .hero-visual {
+    background: #F5F5F5; border-radius: 20px;
+    padding: 28px; position: relative; overflow: hidden;
+    min-height: 380px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .dashboard-card {
+    background: #fff; border-radius: 12px; padding: 20px;
+    border: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .dashboard-label { font-size: 12px; color: rgba(0,0,0,0.4); font-weight: 600; margin-bottom: 8px; }
+  .dashboard-value { font-size: 32px; font-weight: 800; color: #183FE1; }
+  .dashboard-sub { font-size: 13px; color: rgba(0,0,0,0.45); margin-top: 4px; }
+  .mini-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mini-card {
+    background: #fff; border-radius: 10px; padding: 16px;
+    border: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .mini-card .num { font-size: 22px; font-weight: 800; color: #000; }
+  .mini-card .lbl { font-size: 12px; color: rgba(0,0,0,0.4); margin-top: 2px; }
+  .badge-floating {
+    position: absolute; bottom: 24px; right: 24px;
+    background: #183FE1; color: #fff;
+    border-radius: 10px; padding: 10px 16px;
+    font-size: 13px; font-weight: 700;
+    box-shadow: 0 4px 16px rgba(24,63,225,0.3);
+  }
+
+  /* DIVIDER LABEL */
+  .section-label {
+    max-width: 1420px; margin: 0 auto;
+    padding: 0 40px 16px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-label span { font-size: 13px; color: rgba(0,0,0,0.35); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+  .section-label hr { flex: 1; border: none; border-top: 1px solid rgba(0,0,0,0.08); }
+
+  /* MARQUEE CLIENTS */
+  .clients-bar {
+    background: #F5F5F5; border-top: 1px solid rgba(0,0,0,0.07); border-bottom: 1px solid rgba(0,0,0,0.07);
+    padding: 20px 0; overflow: hidden;
+  }
+  .marquee-track { display: flex; gap: 48px; animation: marquee 20s linear infinite; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .client-name { font-size: 15px; font-weight: 700; color: rgba(0,0,0,0.3); white-space: nowrap; }
+
+  /* SERVICES */
+  .section { max-width: 1420px; margin: 0 auto; padding: 80px 40px; }
+  .section-header { margin-bottom: 48px; }
+  .section-header h2 { font-size: 36px; font-weight: 800; color: #000; letter-spacing: -0.8px; margin-bottom: 12px; }
+  .section-header p { font-size: 16px; color: rgba(0,0,0,0.5); max-width: 560px; }
+  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .service-card {
+    border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 28px;
+    cursor: pointer; transition: all 300ms ease; position: relative; overflow: hidden;
+  }
+  .service-card:hover { background: rgba(255,253,237,1); border-color: rgba(24,63,225,0.2); }
+  .service-icon {
+    width: 44px; height: 44px; background: rgba(24,63,225,0.08);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 16px;
+    transition: background 300ms;
+  }
+  .service-card:hover .service-icon { background: rgba(24,63,225,0.15); }
+  .service-card h3 { font-size: 15px; font-weight: 700; color: #000; margin-bottom: 8px; }
+  .service-card p { font-size: 13px; color: rgba(0,0,0,0.5); line-height: 1.55; }
+
+  /* NOTE */
+  .preview-note {
+    text-align: center; padding: 32px; background: rgba(24,63,225,0.04);
+    border-top: 1px solid rgba(24,63,225,0.1);
+    font-size: 14px; color: rgba(0,0,0,0.5);
+  }
+  .preview-note strong { color: #183FE1; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">TentaKlik</div>
+  <ul class="nav-links">
+    <li><a href="#">Beranda</a></li>
+    <li><a href="#">Layanan</a></li>
+    <li><a href="#">Portfolio</a></li>
+    <li><a href="#">Harga</a></li>
+    <li><a href="#">FAQ</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Konsultasi Gratis</a>
+</nav>
+
+<!-- HERO -->
+<section>
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-badge"><span></span> Digital Marketing Agency</div>
+      <h1 class="hero-title">
+        Bikin Brand Kamu<br>
+        Lebih Sering <em>Diklik,</em><br>
+        Diingat, dan Dibeli.
+      </h1>
+      <p class="hero-sub">
+        TentaKlik bantu bisnis tumbuh lewat strategi digital marketing, konten kreatif, iklan berbayar, SEO, social media, dan website yang dirancang untuk menghasilkan konversi.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary">Konsultasi Gratis</button>
+        <button class="btn-secondary">Lihat Layanan →</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">120<span>+</span></div>
+          <div class="stat-label">Campaign dikelola</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4.8<span>x</span></div>
+          <div class="stat-label">Rata-rata ROAS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">90<span>%</span></div>
+          <div class="stat-label">Client repeat order</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="dashboard-card">
+        <div class="dashboard-label">ROAS OVERVIEW — Q1 2025</div>
+        <div class="dashboard-value">4.8x</div>
+        <div class="dashboard-sub">↑ +38% dari bulan lalu · Kopi Senja × LokaStyle</div>
+      </div>
+      <div class="mini-cards">
+        <div class="mini-card">
+          <div class="num">35M<span style="color:#183FE1">+</span></div>
+          <div class="lbl">Total Impressions</div>
+        </div>
+        <div class="mini-card">
+          <div class="num">+230<span style="color:#183FE1">%</span></div>
+          <div class="lbl">Engagement Rate</div>
+        </div>
+        <div class="mini-card">
+          <div class="num">+68<span style="color:#183FE1">%</span></div>
+          <div class="lbl">Conversion Rate</div>
+        </div>
+        <div class="mini-card">
+          <div class="num">3.2<span style="color:#183FE1">x</span></div>
+          <div class="lbl">Lead Growth</div>
+        </div>
+      </div>
+      <div class="badge-floating">⚡ 90% Client Repeat Order</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS MARQUEE -->
+<div class="clients-bar">
+  <div class="marquee-track">
+    <span class="client-name">Kopi Senja</span>
+    <span class="client-name">LokaStyle</span>
+    <span class="client-name">NusaMart</span>
+    <span class="client-name">EduGrow</span>
+    <span class="client-name">Dapur Mama</span>
+    <span class="client-name">Urban Skin</span>
+    <span class="client-name">Sagara Food</span>
+    <span class="client-name">KlikProperti</span>
+    <span class="client-name">Beranda Digital</span>
+    <span class="client-name">Toko Kita</span>
+    <span class="client-name">Kopi Senja</span>
+    <span class="client-name">LokaStyle</span>
+    <span class="client-name">NusaMart</span>
+    <span class="client-name">EduGrow</span>
+    <span class="client-name">Dapur Mama</span>
+    <span class="client-name">Urban Skin</span>
+    <span class="client-name">Sagara Food</span>
+    <span class="client-name">KlikProperti</span>
+    <span class="client-name">Beranda Digital</span>
+    <span class="client-name">Toko Kita</span>
+  </div>
+</div>
+
+<!-- SERVICES PREVIEW -->
+<div class="section">
+  <div class="section-header">
+    <h2>Layanan Digital yang Bikin Bisnis Bergerak.</h2>
+    <p>Dari awareness sampai conversion, semua dirancang biar campaign kamu nggak cuma ramai, tapi juga berdampak.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <h3>Social Media Management</h3>
+      <p>Strategi konten, jadwal posting, dan community management yang konsisten.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎯</div>
+      <h3>Meta Ads</h3>
+      <p>Campaign Facebook & Instagram yang dioptimasi untuk ROAS maksimal.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <h3>Google Ads</h3>
+      <p>Search, Display, dan Shopping ads yang menjangkau audience yang tepat.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <h3>TikTok Ads</h3>
+      <p>Creative-first approach untuk ads yang perform di platform Gen Z.</p>
+    </div>
+  </div>
+</div>
+
+<div class="preview-note">
+  <strong>Preview mockup</strong> — Ini hanya hero + 2 section. Full website akan mencakup semua 12 section dari spesifikasi. Apakah arah ini sudah sesuai?
+</div>
+
+</body>
+</html>
