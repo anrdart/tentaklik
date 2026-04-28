@@ -1,0 +1,66 @@
+---
+import { faqItems, faqSection } from '@/data/content';
+---
+
+<section id="faq" class="py-20 bg-surface">
+  <div class="mx-auto px-10" style="max-width: 960px">
+    <div class="reveal text-center mb-12">
+      <p class="eyebrow">{faqSection.eyebrow}</p>
+      <h2 class="section-title">{faqSection.title}</h2>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      {faqItems.map((item, i) => (
+        <div
+          class="reveal faq-item bg-white border border-border rounded-xl overflow-hidden hover:border-primary transition-colors duration-200"
+          style={`transition-delay: ${i * 40}ms`}
+        >
+          <button
+            class="faq-trigger w-full text-left px-6 py-5 text-sm font-bold text-dark flex items-center justify-between gap-4 cursor-pointer"
+            aria-expanded="false"
+            type="button"
+          >
+            <span>{item.q}</span>
+            <span class="faq-icon text-primary text-xl font-light flex-shrink-0 transition-transform duration-200 leading-none">+</span>
+          </button>
+          <div class="faq-answer overflow-hidden transition-all duration-300 ease-in-out" style="max-height:0">
+            <p class="px-6 pb-5 text-sm text-text-body leading-relaxed">{item.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.faq-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.faq-item')!;
+      const answer = item.querySelector<HTMLElement>('.faq-answer')!;
+      const icon = trigger.querySelector<HTMLElement>('.faq-icon')!;
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+      // Close all others
+      document.querySelectorAll('.faq-item').forEach((other) => {
+        if (other !== item) {
+          other.querySelector('.faq-trigger')!.setAttribute('aria-expanded', 'false');
+          (other.querySelector<HTMLElement>('.faq-answer')!).style.maxHeight = '0';
+          const otherIcon = other.querySelector<HTMLElement>('.faq-icon')!;
+          otherIcon.textContent = '+';
+          otherIcon.style.transform = '';
+        }
+      });
+
+      if (isOpen) {
+        trigger.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = '0';
+        icon.textContent = '+';
+        icon.style.transform = '';
+      } else {
+        trigger.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.style.transform = 'rotate(45deg)';
+      }
+    });
+  });
+</script>

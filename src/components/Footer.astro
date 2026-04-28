@@ -1,0 +1,99 @@
+---
+import { footerContent, siteConfig } from '@/data/content';
+---
+
+<footer class="pt-16 pb-8" style="background:#111">
+  <div class="max-w-container mx-auto px-10">
+    <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-12">
+      <!-- Brand -->
+      <div>
+        <p class="text-xl font-black text-white mb-3">TentaKlik</p>
+        <p class="text-sm leading-relaxed max-w-[240px]" style="color:#666">{footerContent.desc}</p>
+        <div class="flex gap-3 mt-5">
+          <a
+            href={siteConfig.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram TentaKlik"
+            class="w-9 h-9 rounded-lg flex items-center justify-center text-sm hover:bg-primary transition-colors"
+            style="background:#1A1A1A"
+          >📸</a>
+          <a
+            href={siteConfig.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn TentaKlik"
+            class="w-9 h-9 rounded-lg flex items-center justify-center text-sm hover:bg-primary transition-colors"
+            style="background:#1A1A1A"
+          >💼</a>
+          <a
+            href={`mailto:${siteConfig.email}`}
+            aria-label="Email TentaKlik"
+            class="w-9 h-9 rounded-lg flex items-center justify-center text-sm hover:bg-primary transition-colors"
+            style="background:#1A1A1A"
+          >✉️</a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h3 class="text-sm font-extrabold text-white mb-4">Layanan</h3>
+        <ul class="flex flex-col gap-2.5">
+          {footerContent.services.map((s) => (
+            <li>
+              <a href="#layanan" class="text-sm hover:text-primary transition-colors" style="color:#666">{s}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h3 class="text-sm font-extrabold text-white mb-4">Perusahaan</h3>
+        <ul class="flex flex-col gap-2.5">
+          {footerContent.company.map((c) => (
+            <li>
+              <a href={c.href} class="text-sm hover:text-primary transition-colors" style="color:#666">{c.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-sm font-extrabold text-white mb-4">Kontak</h3>
+        <ul class="flex flex-col gap-2.5">
+          <li>
+            <a
+              href={`https://wa.me/${siteConfig.whatsapp.ID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm hover:text-primary transition-colors"
+              style="color:#666"
+            >WhatsApp</a>
+          </li>
+          <li>
+            <a href={`mailto:${siteConfig.email}`} class="text-sm hover:text-primary transition-colors" style="color:#666">
+              {siteConfig.email}
+            </a>
+          </li>
+          <li>
+            <a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer" class="text-sm hover:text-primary transition-colors" style="color:#666">
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" class="text-sm hover:text-primary transition-colors" style="color:#666">
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-6 flex flex-col md:flex-row justify-between items-center gap-3" style="border-top:1px solid #222">
+      <p class="text-xs" style="color:#555">{footerContent.copyright}</p>
+      <p class="text-xs" style="color:#555">Digital Marketing Agency Indonesia</p>
+    </div>
+  </div>
+</footer>

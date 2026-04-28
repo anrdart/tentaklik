@@ -1,0 +1,32 @@
+---
+import { whyUs, whySection } from '@/data/content';
+---
+
+<section id="kenapa" class="py-20 bg-dark">
+  <div class="max-w-container mx-auto px-10">
+    <div class="reveal">
+      <p class="eyebrow">{whySection.eyebrow}</p>
+      <h2 class="text-4xl font-black text-white leading-tight mb-3" style="letter-spacing:-0.05em">{whySection.title}</h2>
+      <p class="text-base text-text-muted leading-relaxed max-w-xl mb-12">{whySection.sub}</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {whyUs.map((item, i) => (
+        <div
+          class={`reveal rounded-2xl p-7 border transition-all duration-200 hover:border-primary ${
+            item.accent
+              ? 'bg-primary border-primary'
+              : 'bg-dark-card border-dark-border'
+          }`}
+          style={`transition-delay: ${i * 50}ms`}
+        >
+          <div class="text-3xl mb-4">{item.icon}</div>
+          <h3 class="text-base font-extrabold text-white mb-2">{item.title}</h3>
+          <p class={`text-[13px] leading-relaxed ${item.accent ? 'text-white/80' : 'text-[#777]'}`}>
+            {item.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

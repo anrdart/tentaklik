@@ -1,0 +1,48 @@
+---
+import { finalCtaSection, siteConfig } from '@/data/content';
+---
+
+<section id="kontak" class="bg-dark py-20 px-10 text-center relative overflow-hidden">
+  <div
+    class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full pointer-events-none"
+    style="background: radial-gradient(circle, rgba(255,121,27,0.07) 0%, transparent 70%)"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative max-w-container mx-auto">
+    <div class="reveal">
+      <h2 class="text-4xl lg:text-[42px] font-black text-white leading-tight mb-4 whitespace-pre-line" style="letter-spacing:-0.05em">
+        {finalCtaSection.title}
+      </h2>
+      <p class="text-base max-w-[520px] mx-auto leading-relaxed mb-9" style="color:#777">
+        {finalCtaSection.sub}
+      </p>
+      <button
+        id="final-cta-btn"
+        class="bg-primary hover:bg-primary-dark text-white font-extrabold text-base px-10 py-4 rounded-xl transition-colors tracking-wider cursor-pointer"
+      >
+        {finalCtaSection.cta}
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { fireConfetti } from '@/utils/confetti';
+  import { getWhatsAppLink, detectRegion } from '@/utils/region';
+  import { siteConfig } from '@/data/content';
+
+  document.getElementById('final-cta-btn')!.addEventListener('click', async () => {
+    await fireConfetti();
+    const region = detectRegion();
+    window.open(
+      getWhatsAppLink(
+        siteConfig.whatsapp,
+        region,
+        'Halo TentaKlik! Saya ingin konsultasi gratis.'
+      ),
+      '_blank',
+      'noopener,noreferrer'
+    );
+  });
+</script>
